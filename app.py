@@ -4,7 +4,7 @@ import threading
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'perinbocadaparafuseta!'
-io = SocketIO(app)
+io = SocketIO(app, async_mode='threading')
 
 messages = []
 clients = set()  # Conjunto para armazenar os clientes conectados
