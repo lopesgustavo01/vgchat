@@ -1,10 +1,11 @@
 from flask import Flask, render_template, request
 from flask_socketio import SocketIO, emit, send
+import eventlet
 import threading
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'perinbocadaparafuseta!'
-io = SocketIO(app, async_mode='threading')
+io = SocketIO(app, async_mode='eventlet')
 
 messages = []
 clients = set()  # Conjunto para armazenar os clientes conectados
