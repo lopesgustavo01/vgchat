@@ -26,6 +26,7 @@ def connect_handler():
     clients.add(request.sid)  # Adiciona o socket ID do cliente à lista de clientes conectados
     print(f'Cliente conectado: {request.sid}')
     socketio.emit('update_server_number', {'num_server': 2})
+    socketio.emit('clear', room=request.sid)
     # Outras ações que você deseja realizar quando um cliente se conecta
 
 

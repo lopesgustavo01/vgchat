@@ -76,7 +76,7 @@
 <div class="container">
     <p>esse é o server: <span id="num_server"></span>;</p>
     <div class="box">
-        <h1>Duda-Chat</h1>
+        <h1>VgChat</h1>
         <div class="chatbox"></div>
         <div class="btns">
             <form>
@@ -107,7 +107,10 @@
           chat.scrollTop = chat.scrollHeight; // Faz a rolagem para a parte inferior da caixa
         }
 
-
+        socket.on('clear', ()=> {
+            const chatbox = document.querySelector('.chatbox');
+            chatbox.innerHTML = '';
+        })
 
         socket.on('connect', () => {
             socket.send('Usuário conectado ao socket');
