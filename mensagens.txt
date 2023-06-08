@@ -1,4 +1,9 @@
-lopes,, salve
-pedro,, salve2
-lopes,, as
-pedro,, oii
+joge,, 1234
+teste1,, opa
+karalho,, é caralho
+luiz picamolis,, picaduras
+luizpicamoli,, então né meu velho
+lluizpicadura,, falameuvelyo
+coecara,, deu certo? por favor
+deucertoeusei,, foi msmo?
+joaopedefeijao,, cara me diz que foi, pof vaor?

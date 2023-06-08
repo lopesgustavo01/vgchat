@@ -83,8 +83,8 @@ def off():
 if __name__ == '__main__':
     while exe:
         time.sleep(1)
-        exe = check_connection('http://192.168.2.104:5000/')
+        exe = check_connection('http://192.168.0.15:5000/')
         print(exe)
         pass
-    socketio.run(app, host='192.168.2.104', port=5000)
+    socketio.run(app, host='192.168.0.15', port=5000)
 
