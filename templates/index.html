@@ -74,6 +74,7 @@
 </head>
 <body>
 <div class="container">
+    <p>esse é o server: <span id="num_server"></span>;</p>
     <div class="box">
         <h1>Duda-Chat</h1>
         <div class="chatbox"></div>
@@ -88,12 +89,14 @@
 </div>
 
 <script type="text/javascript" charset="utf-8">
-console.log('a')
-    window.onload = function () {
-        console.log('a')
-        const socket = io('https://vgchat.herokuapp.com/');
-        console.log('a')
 
+    window.onload = function () {
+
+        const socket = io('http://192.168.2.104:5000/');
+
+        socket.on('update_server_number', function(data) {
+            document.getElementById('num_server').innerText = data.num_server;
+        });
 
         function addToChat(msg) {
           const span = document.createElement("span");

@@ -7,42 +7,13 @@
 <body>
     <ul id="user-list"></ul>
     <ul id="message-list"></ul>
-
-    <form id="message-form">
-        <input type="text" id="message-input" />
-        <button type="submit">Enviar</button>
-    </form>
+    {% if server %}
+        <h1>{{ server }}</h1>
+    {% endif %}
+    <h1>foi bitch {{ server }}</h1>
 
     <script type="text/javascript">
-        var socket = io.connect('http://192.168.2.104:5000');
 
-        // Atualiza a lista de usuários conectados
-        socket.on('user_list', function(data) {
-            var userList = document.getElementById('user-list');
-            userList.innerHTML = '';
-            data.users.forEach(function(user) {
-                var li = document.createElement('li');
-                li.innerHTML = user;
-                userList.appendChild(li);
-            });
-        });
-
-        // Exibe uma nova mensagem recebida
-        socket.on('message', function(data) {
-            var messageList = document.getElementById('message-list');
-            var li = document.createElement('li');
-            li.innerHTML = data.user_id + ' says: ' + data.message;
-            messageList.appendChild(li);
-        });
-
-        // Envia a mensagem quando o formulário for enviado
-        document.getElementById('message-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            var input = document.getElementById('message-input');
-            var message = input.value;
-            input.value = '';
-            socket.emit('message', {message: message});
-        });
     </script>
 </body>
 </html>
