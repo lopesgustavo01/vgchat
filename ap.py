@@ -16,38 +16,34 @@ exe = True
 #funaçao pagina
 @app.route('/')
 def index():
-    server = '2'
     return render_template('index.html')
 
 
+# Função responsável pelo controle das conexões com o servidor 2.
 @socketio.on('connect')
 def connect_handler():
     global clients
     clients.add(request.sid)  # Adiciona o socket ID do cliente à lista de clientes conectados
     print(f'Cliente conectado: {request.sid}')
-    socketio.emit('update_server_number', {'num_server': 2})
-    socketio.emit('clear', room=request.sid)
-    # Outras ações que você deseja realizar quando um cliente se conecta
+    socketio.emit('update_server_number', {'num_server': './static/imgs/2.png'})
+
+    socketio.emit('clear')
+    if clients != '':
+        # Cria uma nova thread para processar a conexão do cliente
+        thread = threading.Thread(target=client_thread, args=(request.sid,))
+        thread.start()
 
 
+
+# Função para solicitar a lista de clientes conectados
+
+# Função responsável pelo controle das desconexões com o servidor 2
 @socketio.on('disconnect')
 def disconnect_handler():
     global clients
     clients.remove(request.sid)  # Remove o socket ID do cliente da lista de clientes conectados
     print(f'Cliente desconectado: {request.sid}')
     # Outras ações que você deseja realizar quando um cliente se desconecta
-
-
-@socketio.on('sendMessage')
-def send_message_handler(msg):
-    global stop_server, exe
-    if msg["message"] == 'stop':
-        off()
-    salvar = f'{msg["name"]},, {msg["message"]}'
-    # Salvar mensagem em um arquivo de texto
-    with open('mensagens.txt', 'a') as file:
-        file.write(salvar + '\n')
-    emit('getMessage', msg, broadcast=True)
 
 
 @socketio.on('message')
@@ -62,6 +58,32 @@ def message_handler(msg):
             obj = {'name': b[0], 'message': b[1]}
             messages.append(obj)
     send(messages)
+
+
+def send_all(client_sid, msg):
+    emit('getMessage', msg, broadcast=True)
+    print(f'Mensagem enviada pelo cliente: {client_sid},{msg}')
+
+
+def client_thread(client_sid):
+    # Lógica para processar a conexão do cliente em uma nova thread
+    while True:
+        @socketio.on('sendMessage')
+        def send_message_handler(msg):
+            global stop_server, exe
+            if msg["message"] == 'stop':
+                off()
+            salvar = f'{msg["name"]},, {msg["message"]}'
+            # Salvar mensagem em um arquivo de texto
+            with open('mensagens.txt', 'a') as file:
+                file.write(salvar + '\n')
+            send_all_thread = threading.Thread(target=send_all(client_sid,msg), args=(request.sid,))
+            send_all_thread.start()
+    def client_message_handler():
+        pass
+
+    client_message_thread = threading.Thread(target=client_message_handler)
+    client_message_thread.start()
 
 
 #funçao servidor
@@ -83,8 +105,8 @@ def off():
 if __name__ == '__main__':
     while exe:
         time.sleep(1)
-        exe = check_connection('http://192.168.0.15:5000/')
+        exe = check_connection('http://192.168.2.104:5000/')
         print(exe)
         pass
-    socketio.run(app, host='192.168.0.15', port=5000)
+    socketio.run(app, host='192.168.2.104', port=5000)
 
