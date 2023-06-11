@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>vg-chat</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #F0F6FA; /* Cor de fundo */
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        .box {
+            width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #FFFFFF; /* Cor de fundo da caixa */
+        }
+
+        .box h1 {
+            font-size: 24px;
+            margin: 0 0 20px;
+            color: #333333; /* Cor do texto do cabeçalho */
+        }
+
+        .chatbox {
+            height: 200px;
+            overflow-y: auto;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+            padding: 10px;
+            text-align: left;
+            background-color: #FCE4EC; /* Cor de fundo da caixa de chat */
+        }
+
+        .chatbox span {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .btns {
+            display: flex;
+            justify-content: center;
+        }
+
+        form {
+            display: flex;
+            align-items: center;
+        }
+
+        input[type="text"] {
+            padding: 5px;
+            margin-right: 5px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        button {
+            padding: 5px 10px;
+            background-color: #4285F4; /* Cor de fundo do botão */
+            border: none;
+            color: #FFFFFF; /* Cor do texto do botão */
+            border-radius: 3px;
+            cursor: pointer;
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.6.1/socket.io.js"></script>
+</head>
+<body>
+<div class="container">
+    <p>esse é o server: <span id="num_server"></span>;</p>
+    <div class="box">
+        <h1>VgChat</h1>
+        <div class="chatbox"></div>
+        <div class="btns">
+            <form>
+                <input class="btn_nome" type="text" placeholder="nome">
+                <input class="btn_text" type="text" placeholder="mensagem">
+                <button type="submit">enviar</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" charset="utf-8">
+    window.onload = function () {
+
+        const socket = io('http://192.168.2.104:5000/');
+
+        socket.on('update_server_number', function(data) {
+            document.getElementById('num_server').innerText = data.num_server;
+        });
+
+        function addToChat(msg) {
+            const span = document.createElement("span");
+            const chat = document.querySelector(".chatbox");
+            span.innerHTML = `<strong>${msg.name}</strong>: ${msg.message}`;
+            chat.prepend(span); // Adiciona a mensagem no início da lista de mensagens
+
+            chat.scrollTop = chat.scrollHeight; // Faz a rolagem para a parte inferior da caixa
+        }
+
+        socket.on('clear', ()=> {
+            const chatbox = document.querySelector('.chatbox');
+            chatbox.innerHTML = '';
+        })
+
+        socket.on('connect', () => {
+            socket.send('Usuário conectado ao socket');
+        });
+
+        document.querySelector("form").addEventListener("submit", function (event) {
+            event.preventDefault();
+            const name = event.target[0].value;
+            const message = event.target[1].value;
+            socket.emit('sendMessage', {name, message});
+            event.target[1].value = '';
+        });
+
+        socket.on('getMessage', (msg) => {
+            addToChat(msg);
+        });
+
+        socket.on('message', (msgs) => {
+            for (const msg of msgs) {
+                addToChat(msg);
+            }
+        });
+    }
+</script>
+</body>
+</html>
