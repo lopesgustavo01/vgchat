@@ -1,10 +1,14 @@
-lopes,, oi
-lopes,, atop
-,, oi
-,, a
-,, salve
-a,, aaaaa
-a,, aaaaa
-,, ola
-ola ,, print
-ola ,, salve
+,, n
+uber,, pode te buscar?]
+uber,, quer balinha?
+uber,, (_y_)
+Lariane ,, Insuportável 
+uber,, C=====|
+passageiro ,, vem me buscar vagabunda
+Lariane ,, Vai a merda 
+passageiro ,, pega café uber
+Lariane ,, N precisei 
+Lariane ,, 
+gustavo,, emyli
+druga,, drigo
+drussa,, drugo

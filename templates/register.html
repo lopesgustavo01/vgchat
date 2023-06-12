@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tela de Registro</title>
+    <script>
+        $(document).ready(function() {
+            $('#registration-form').submit(function(event) {
+                event.preventDefault();
+                var username = $('#username').val();
+                var password = $('#password').val();
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/register',
+                    data: {
+                        username: username,
+                        password: password
+                    },
+                    success: function(response) {
+                        alert(response);
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <h1>Tela de Registro</h1>
+    <form id="registration-form" method="POST">
+        <label for="username">Usuário:</label>
+        <input type="text" id="username" name="username" required><br>
+
+        <label for="password">Senha:</label>
+        <input type="password" id="password" name="password" required><br>
+
+        <input type="submit" value="Registrar">
+    </form>
+</body>
+</html>

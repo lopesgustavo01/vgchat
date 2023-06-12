@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login</title>
+  <style>.container {
+  width: 300px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  text-align: center;
+}
+
+h1 {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
+  text-align: left;
+}
+
+input[type="text"],
+input[type="password"] {
+  width: 100%;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+
+button {
+  padding: 5px 10px;
+}
+</style>
+</head>
+<body>
+  <div class="container">
+    <h1>Login</h1>
+    <form id="loginForm">
+      <label for="username">Usuário:</label>
+      <input type="text" id="username" name="username" required>
+      <label for="password">Senha:</label>
+      <input type="password" id="password" name="password" required>
+      <button type="submit">Entrar</button>
+    </form>
+    <div id="message"></div>
+  </div>
+
+  <script>document.getElementById("loginForm").addEventListener("submit", function(event) {
+  event.preventDefault(); // Impede o envio do formulário
+
+  var username = document.getElementById("username").value;
+  var password = document.getElementById("password").value;
+
+  // Faça uma solicitação AJAX para o servidor Flask
+  // Aqui está apenas um exemplo básico, você precisa ajustá-lo para suas necessidades
+  fetch("/login", {
+    method: "POST",
+    body: JSON.stringify({ username: username, password: password }),
+    headers: {
+      "Content-Type": "application/json"
+    }
+  })
+  .then(function(response) {
+    if (response.ok) {
+      // Redirecionar para a página principal ou realizar outra ação desejada
+      window.location.href = "/home";
+    } else {
+      // Exibir uma mensagem de erro para o usuário
+      document.getElementById("message").textContent = "Credenciais inválidas.";
+    }
+  })
+  .catch(function(error) {
+    console.log(error);
+    // Exibir uma mensagem de erro genérica para o usuário
+    document.getElementById("message").textContent = "Ocorreu um erro no servidor.";
+  });
+});
+</script>
+</body>
+</html>
