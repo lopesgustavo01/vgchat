@@ -3,38 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <title>vg-chat</title>
+    <link rel="stylesheet" href="./static/styles/style.css">
 
-    <link rel="stylesheet" href="./static/style.css">
 
 </head>
-<body>
-<div class="container">
+<body onclick="showChat()">
 
+
+<nav>
+    <div class="dropdown">
+        <a href="#">Menu</a>
+        <div class="dropdown-content">
+            <ul>
+                <li><a href="#">{{username}}</a></li>
+                <li><a href="#" id="logout-link">Logout</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="animation-container" id="vg-chat-animation">VG Chat</div>
+
+
+<div id="chat" class="container" style="display: none;">
     <img id="num_server" src="">
-
     <div class="box">
-        <h1>Vg-Chat</h1>
+        <h1 class="tracking-in-contract-bck" >Vg-Chat</h1>
         <div class="chatbox"></div>
         <div class="btns">
             <form>
-                <input class="btn_nome" type="text" placeholder="nome">
+                <p id="nome">{{username}}</p>
                 <input class="btn_text" type="text" placeholder="mensagem">
                 <button type="submit">enviar</button>
             </form>
         </div>
     </div>
-
     <div>
         <div id="animation-container" class="animation"></div>
         <div id="animation-container1" class="animation"></div>
         <div id="animation-container2" class="animation"></div>
     </div>
-
 </div>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.10/lottie.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.6.1/socket.io.js"></script>
-<script src="./static/script.js"></script>
-
+<script src="./static/scripts/script.js"></script>
 </body>
 </html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+    <link rel="stylesheet" href="./static/styles/style_l.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Login</h2>
+        <form action="/login" method="POST">
+
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+            <div class="error-message" id="error-message"></div>
+            <p style="color: red; font-size: 11px; text-align: center; display: block; ">{{erro}}</p>
+            <input type="submit" value="Login">
+        </form>
+        <button onclick="redirectToRegister()">Register</button>
+    </div>
+
+    <script>
+        function redirectToRegister() {
+            window.location.href = "/register";
+        }
+    </script>
+</body>
+</html>

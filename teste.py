@@ -1,81 +1,15 @@
-from flask import Flask, render_template, request, jsonify, redirect, url_for, make_response
+from flask import request
 from flask_socketio import SocketIO, emit, send
 import threading
 import os
 import signal
+from rotas import app
 
-app = Flask(__name__)
-app.config['SECRET_KEY'] = 'perinbocadaparafuseta!'
+
 socketio = SocketIO(app)
 messages = []
 clients = set()  # Conjunto para armazenar os clientes conectados
 
-@app.route('/register', methods=['POST'])
-def register():
-    if request.method == 'POST':
-        username = request.form.get('username')
-        password = request.form.get('password')
-        # Faça o que quiser com os dados do formulário, como salvar em um banco de dados
-        salvar = f'{username},,{password}'
-        # Salvar mensagem em um arquivo de texto
-        with open('accounts.txt', 'a') as file:
-            file.write(salvar + '\n')
-
-        print("Olá")
-        return redirect(url_for('home'))
-
-@app.route('/register')
-def retorna():
-    return render_template("register.html")
-
-
-@app.route('/logout')
-def logout():
-    response = make_response(redirect(url_for('/')))
-    response.set_cookie('username', '', expires=0)
-    return response
-
-@app.route('/login', methods=['POST'])
-def login():
-    #data = request.get_json()
-    username = request.form('username')
-    password = request.form('password')
-    username2 = False
-    with open("accounts.txt", 'r') as file:
-        while True:
-            a = file.readline().rstrip('\n')
-            if a == '':
-                break
-            b = a.split(',,')
-            print(b)
-            if b[0] == username:
-                print(b[1], password)
-                if b[1] == password:
-                    username2 = True
-                    print("DEU PORRA")
-                    break
-    if username2:
-        response = make_response(redirect(url_for('/')))
-        response.set_cookie('username', username)
-        return response
-    else:
-        return jsonify({'success': False}), 401
-
-@app.route('/login')
-def retorna_login():
-    return render_template('teste.html')
-
-@app.route('/')
-def home():
-    # Verifique se o cookie de usuário existe para determinar se o usuário está logado
-    server = '1'
-    username = request.cookies.get('username')
-    if username:
-        # Usuário está logado
-        return render_template('index.html', username=username)
-    else:
-        # Usuário não está logado
-        return redirect(url_for('/login'))
 
 # Função responsável pelo controle das conexões com o servidor 1.
 @socketio.on('connect')
@@ -100,6 +34,7 @@ def disconnect_handler():
     clients.remove(client_sid)  # Remove o socket ID do cliente da lista de clientes conectados
     print(f'Cliente desconectado: {client_sid}')
 
+
 @socketio.on('message')
 def message_handler(msg):
     messages = []
@@ -114,11 +49,13 @@ def message_handler(msg):
     send(messages)
 
 # Salva as mensagens do servidor em um .txt para que seja possível iniciar o segundo servidor sem perder nada
+
 def save_data(msg):
     salvar = f'{msg["name"]},, {msg["message"]}'
     # Salvar mensagem em um arquivo de texto
     with open('mensagens.txt', 'a') as file:
         file.write(salvar + '\n')
+
 
 # Função responsável por enviar a mensagem do servidor para todos os clientes conectados
 def send_all(client_sid, msg):
@@ -148,5 +85,4 @@ def off():
 
 
 
-if __name__ == '__main__':
-    socketio.run(app, debug=True, host='192.168.0.115', port=5000, allow_unsafe_werkzeug=True)
+

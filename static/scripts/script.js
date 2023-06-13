@@ -1,5 +1,6 @@
 window.onload = function() {
-  const socket = io('http://192.168.0.115:5000/');
+  const socket = io('http://192.168.2.104:5000/');
+
 
   socket.on('update_server_number', function(data) {
     document.getElementById('num_server').src = data.num_server;
@@ -18,13 +19,15 @@ window.onload = function() {
     chatbox.innerHTML = '';
   });
 
+
   document.querySelector('form').addEventListener('submit', function(event) {
     event.preventDefault();
-    const name = event.target[0].value;
-    const message = event.target[1].value;
-    socket.emit('sendMessage', { name, message });
-    event.target[1].value = '';
-  });
+    const name = document.querySelector('p').textContent;
+    const message = document.querySelector('input').value;
+    socket.emit('sendMessage', { name: name, message: message });
+    document.querySelector('input').value = '';
+});
+
 
   socket.on('getMessage', (msg) => {
     addToChat(msg);
@@ -62,3 +65,20 @@ window.onload = function() {
     path: './static/animation/69959-monkey-animator.json'
   });
 };
+
+document.getElementById('logout-link').addEventListener('click', function(event) {
+        event.preventDefault();
+        // Envia uma solicitação para a rota '/logout'
+        fetch('/logout')
+            .then(function(response) {
+                // Redireciona para a página inicial após o logout
+                window.location.href = '/';
+            });
+    });
+
+function showChat() {
+    var animation = document.getElementById('vg-chat-animation');
+            animation.style.display = 'none';
+    var chat = document.getElementById('chat');
+    chat.style.display = 'flex';
+}

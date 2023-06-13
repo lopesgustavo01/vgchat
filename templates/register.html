@@ -1,42 +1,28 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 <head>
     <title>Tela de Registro</title>
-    <script>
-        $(document).ready(function() {
-            $('#registration-form').submit(function(event) {
-                event.preventDefault();
-                var username = $('#username').val();
-                var password = $('#password').val();
+    <link rel="stylesheet" href="./static/styles/style_r.css">
 
-                $.ajax({
-                    type: 'POST',
-                    url: '/register',
-                    data: {
-                        username: username,
-                        password: password
-                    },
-                    success: function(response) {
-                        alert(response);
-                    },
-                    error: function(error) {
-                        console.log(error);
-                    }
-                });
-            });
-        });
-    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script src="./static/scripts/script_r.js"></script>
 </head>
 <body>
-    <h1>Tela de Registro</h1>
-    <form id="registration-form" method="POST">
-        <label for="username">Usuário:</label>
-        <input type="text" id="username" name="username" required><br>
+    <div id="container">
+        <h1>Tela de Registro</h1>
 
-        <label for="password">Senha:</label>
-        <input type="password" id="password" name="password" required><br>
+        <form id="registration-form" method="POST">
+            <label for="username">Usuário:</label>
+            <input type="text" id="username" name="username" required><br>
 
-        <input type="submit" value="Registrar">
-    </form>
+            <label for="password">Senha:</label>
+            <input type="password" id="password" name="password" required><br>
+
+            <input type="submit" value="Registrar">
+        </form>
+
+        <button id="btn-voltar">Voltar</button>
+    </div>
 </body>
 </html>
