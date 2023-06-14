@@ -1,28 +1,45 @@
-,, n
-uber,, pode te buscar?]
-uber,, quer balinha?
-uber,, (_y_)
-Lariane ,, Insuportável 
-uber,, C=====|
-passageiro ,, vem me buscar vagabunda
-Lariane ,, Vai a merda 
-passageiro ,, pega café uber
-Lariane ,, N precisei 
-Lariane ,, 
-gustavo,, emyli
-druga,, drigo
-drussa,, drugo
-lopes,, oii
-lopes,, foi legal
-lopes,, salve
-Usuario: admin,, salve
-Lopes,, Oi
-admin,, salve
-admin,, ola
-admin,, ola
-admin,, oi
-admin,, foi
-admin,, ola
-admin,, ola
-admin,, opa
-admin,, llllll
+joge,, 1234
+teste1,, opa
+karalho,, ï¿½ caralho
+luiz picamolis,, picaduras
+luizpicamoli,, entï¿½o nï¿½ meu velho
+lluizpicadura,, falameuvelyo
+coecara,, deu certo? por favor
+deucertoeusei,, foi msmo?
+joaopedefeijao,, cara me diz que foi, pof vaor?
+joaojoao,, xuao
+joaojoao,, 
+joaojoao,, asas
+joaojoao,, asasas
+joaojoao,, asasas
+joga joga,, 12345
+joga joga,, 123123123
+pedro,, 12312312
+pedro,, 
+pedrinho,, 123123
+joga 123,, ssss
+joas,, 12343
+123,, oi
+pedro,, oi
+oi ,, olï¿½
+oi ,, tudo bem?
+kao,, oi
+opa,, kkaka
+asa,, 123123
+entï¿½o meu velho ï¿½ o seguinte,, o nome ï¿½ aqui
+entï¿½o meu velho ï¿½ o seguinte,, asdasdas
+entï¿½o meu velho ï¿½ o seguinte,, asdasdasd
+entï¿½o meu velho ï¿½ o seguinte,, asdasdasd12
+drussinha,, opa meu velho
+drussinha,, tudo bem?
+admin,, Oii
+drussinha,, opa
+drussinha,, opinha
+drussinha,, ue
+drussinha,, aqui foi?
+drussinha,, aaaaaaaaaa
+drussinha,, aa
+drussinha,, oioioi
+drussinha,, aaaaaaa
+drussinha,, que porra é essa irmão
+drussinha,, olá

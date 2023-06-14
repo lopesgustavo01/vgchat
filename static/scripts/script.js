@@ -1,5 +1,5 @@
 window.onload = function() {
-  const socket = io('http://192.168.2.104:5000/');
+  const socket = io('http://192.168.0.15:5000/');
 
 
   socket.on('update_server_number', function(data) {

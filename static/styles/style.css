@@ -75,7 +75,7 @@ margin-left: 20px;
 .btns {
     display: flex;
     flex-direction: column;
-    border: 1px solid red;
+    border: 1px;
 }
 
 .btns input[type="text"] {

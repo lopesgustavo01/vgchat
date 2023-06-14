@@ -48,14 +48,11 @@ def message_handler(msg):
             messages.append(obj)
     send(messages)
 
-# Salva as mensagens do servidor em um .txt para que seja possível iniciar o segundo servidor sem perder nada
-
 def save_data(msg):
     salvar = f'{msg["name"]},, {msg["message"]}'
     # Salvar mensagem em um arquivo de texto
     with open('mensagens.txt', 'a') as file:
         file.write(salvar + '\n')
-
 
 # Função responsável por enviar a mensagem do servidor para todos os clientes conectados
 def send_all(client_sid, msg):
@@ -68,7 +65,6 @@ def client_thread(client_sid):
     while True:
         @socketio.on('sendMessage')
         def send_message_handler(msg):
-            global stop_server, exe
             if msg["message"] == 'stop':
                 off()
             # Thread de salvar as mensagens
